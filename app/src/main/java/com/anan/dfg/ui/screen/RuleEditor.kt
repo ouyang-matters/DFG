@@ -50,9 +50,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import com.anan.dfg.R
 import com.anan.dfg.data.IntervalUnit
 import com.anan.dfg.data.RecurrenceType
 import com.anan.dfg.data.ReminderRule
@@ -76,6 +79,7 @@ fun RuleEditorDialog(
     onSave: (ReminderRule) -> Unit,
     onDelete: () -> Unit,
 ) {
+    val res = LocalContext.current.resources
     var rule by remember { mutableStateOf(initial) }
     var showDatePicker by remember { mutableStateOf(false) }
     var editingWindowStart by remember { mutableStateOf(false) }
@@ -92,10 +96,13 @@ fun RuleEditorDialog(
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     IconButton(onClick = onDismiss) {
-                        Icon(Icons.Default.Close, contentDescription = "Close")
+                        Icon(
+                            Icons.Default.Close,
+                            contentDescription = stringResource(R.string.action_close),
+                        )
                     }
                     Text(
-                        "Schedule",
+                        stringResource(R.string.rule_title),
                         style = MaterialTheme.typography.titleLarge,
                         modifier = Modifier.weight(1f),
                     )
@@ -103,7 +110,7 @@ fun RuleEditorDialog(
                         IconButton(onClick = onDelete) {
                             Icon(
                                 Icons.Default.DeleteOutline,
-                                contentDescription = "Delete rule",
+                                contentDescription = stringResource(R.string.rule_delete),
                                 tint = MaterialTheme.colorScheme.error,
                             )
                         }
@@ -119,7 +126,7 @@ fun RuleEditorDialog(
                 ) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Text(
-                            "Rule active",
+                            stringResource(R.string.rule_active),
                             Modifier.weight(1f),
                             style = MaterialTheme.typography.bodyLarge,
                         )
@@ -129,13 +136,13 @@ fun RuleEditorDialog(
                         )
                     }
 
-                    Overline("Repeats")
+                    Overline(stringResource(R.string.rule_repeats))
                     FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         RecurrenceType.entries.forEach { type ->
                             FilterChip(
                                 selected = rule.recurrence == type,
                                 onClick = { rule = rule.copy(recurrence = type) },
-                                label = { Text(Format.recurrenceName(type)) },
+                                label = { Text(Format.recurrenceName(res, type)) },
                                 shape = RoundedCornerShape(10.dp),
                                 colors = selectedChipColors(),
                             )
@@ -144,10 +151,12 @@ fun RuleEditorDialog(
 
                     when (rule.recurrence) {
                         RecurrenceType.ONCE -> {
-                            Overline("Date")
+                            Overline(stringResource(R.string.rule_date))
                             AssistChip(
                                 onClick = { showDatePicker = true },
-                                label = { Text(rule.onceDate ?: "Pick a date") },
+                                label = {
+                                    Text(rule.onceDate ?: stringResource(R.string.rule_pick_date))
+                                },
                                 shape = RoundedCornerShape(10.dp),
                                 colors = AssistChipDefaults.assistChipColors(
                                     containerColor = MaterialTheme.colorScheme.secondaryContainer,
@@ -156,11 +165,11 @@ fun RuleEditorDialog(
                         }
 
                         RecurrenceType.WEEKLY -> {
-                            Overline("Days of the week")
+                            Overline(stringResource(R.string.rule_days_week))
                             Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                                 (1..7).forEach { day ->
                                     DayToggle(
-                                        label = Format.weekdayInitial(day),
+                                        label = Format.weekdayNarrow(res, day),
                                         selected = day in rule.daysOfWeek,
                                         onClick = {
                                             rule = rule.copy(
@@ -174,7 +183,7 @@ fun RuleEditorDialog(
                         }
 
                         RecurrenceType.MONTHLY -> {
-                            Overline("Days of the month")
+                            Overline(stringResource(R.string.rule_days_month))
                             FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                                 (1..31).forEach { day ->
                                     FilterChip(
@@ -190,30 +199,24 @@ fun RuleEditorDialog(
                                     )
                                 }
                             }
-                            Hint(
-                                "If a month is too short for the day you picked — the 31st in " +
-                                    "February, say — it lands on the last day of that month.",
-                            )
+                            Hint(stringResource(R.string.rule_month_hint))
                         }
 
                         RecurrenceType.INTERVAL -> {
-                            Overline("Interval")
+                            Overline(stringResource(R.string.rule_interval_label))
                             IntervalRow(
                                 count = rule.intervalCount,
                                 unit = rule.intervalUnit,
                                 onCountChange = { rule = rule.copy(intervalCount = it) },
                                 onUnitChange = { rule = rule.copy(intervalUnit = it) },
                             )
-                            Hint(
-                                "Each period needs at least one check. When a period ends " +
-                                    "with nothing logged, you get a reminder.",
-                            )
+                            Hint(stringResource(R.string.rule_interval_hint))
                         }
                     }
 
                     if (rule.recurrence != RecurrenceType.INTERVAL) {
                         Spacer(Modifier.height(2.dp))
-                        Overline("Window")
+                        Overline(stringResource(R.string.rule_window))
                         Row(
                             horizontalArrangement = Arrangement.spacedBy(10.dp),
                             verticalAlignment = Alignment.CenterVertically,
@@ -222,19 +225,19 @@ fun RuleEditorDialog(
                                 label = Format.minuteOfDay(rule.windowStartMinute),
                                 onClick = { editingWindowStart = true },
                             )
-                            Text("to", style = MaterialTheme.typography.bodyMedium)
+                            Text(
+                                stringResource(R.string.rule_to),
+                                style = MaterialTheme.typography.bodyMedium,
+                            )
                             TimeChip(
                                 label = Format.minuteOfDay(rule.windowEndMinute),
                                 onClick = { editingWindowEnd = true },
                             )
                         }
                         Hint(
-                            "At least one check has to land inside this window, otherwise you " +
-                                "get a reminder at " + Format.minuteOfDay(rule.windowEndMinute) +
-                                ". Checks outside the window don't count towards it." +
+                            stringResource(R.string.rule_window_hint) +
                                 if (rule.windowEndMinute <= rule.windowStartMinute) {
-                                    " The end time is earlier than the start, so the window runs " +
-                                        "into the next day."
+                                    " " + stringResource(R.string.rule_window_overnight)
                                 } else {
                                     ""
                                 },
@@ -248,9 +251,9 @@ fun RuleEditorDialog(
                         modifier = Modifier.fillMaxWidth(),
                     ) {
                         Column(Modifier.padding(14.dp)) {
-                            Overline("Preview")
+                            Overline(stringResource(R.string.rule_preview))
                             Spacer(Modifier.height(4.dp))
-                            Text(Format.rule(rule), style = MaterialTheme.typography.bodyLarge)
+                            Text(Format.rule(res, rule), style = MaterialTheme.typography.bodyLarge)
                         }
                     }
                     Spacer(Modifier.height(4.dp))
@@ -259,7 +262,7 @@ fun RuleEditorDialog(
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(14.dp),
                     ) {
-                        Text("Save schedule")
+                        Text(stringResource(R.string.rule_save))
                     }
                 }
             }
@@ -283,10 +286,12 @@ fun RuleEditorDialog(
                         rule = rule.copy(onceDate = date.toString())
                     }
                     showDatePicker = false
-                }) { Text("OK") }
+                }) { Text(stringResource(R.string.action_ok)) }
             },
             dismissButton = {
-                TextButton(onClick = { showDatePicker = false }) { Text("Cancel") }
+                TextButton(onClick = { showDatePicker = false }) {
+                    Text(stringResource(R.string.action_cancel))
+                }
             },
         ) {
             DatePicker(state = state)
@@ -295,7 +300,7 @@ fun RuleEditorDialog(
 
     if (editingWindowStart) {
         TimePickerDialog(
-            title = "Window opens",
+            title = stringResource(R.string.rule_open_time),
             initialMinuteOfDay = rule.windowStartMinute,
             onDismiss = { editingWindowStart = false },
             onConfirm = {
@@ -307,7 +312,7 @@ fun RuleEditorDialog(
 
     if (editingWindowEnd) {
         TimePickerDialog(
-            title = "Window closes (reminder time)",
+            title = stringResource(R.string.rule_close_time),
             initialMinuteOfDay = rule.windowEndMinute,
             onDismiss = { editingWindowEnd = false },
             onConfirm = {
@@ -392,9 +397,13 @@ private fun TimePickerDialog(
         title = { Text(title) },
         text = { TimeInput(state = state) },
         confirmButton = {
-            TextButton(onClick = { onConfirm(state.hour * 60 + state.minute) }) { Text("OK") }
+            TextButton(onClick = { onConfirm(state.hour * 60 + state.minute) }) {
+                Text(stringResource(R.string.action_ok))
+            }
         },
-        dismissButton = { TextButton(onClick = onDismiss) { Text("Cancel") } },
+        dismissButton = {
+            TextButton(onClick = onDismiss) { Text(stringResource(R.string.action_cancel)) }
+        },
     )
 }
 
@@ -412,7 +421,8 @@ private fun IntervalRow(
         horizontalArrangement = Arrangement.spacedBy(10.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Text("Every", style = MaterialTheme.typography.bodyLarge)
+        val res = LocalContext.current.resources
+        Text(stringResource(R.string.rule_every), style = MaterialTheme.typography.bodyLarge)
         OutlinedTextField(
             value = text,
             onValueChange = { input ->
@@ -426,7 +436,7 @@ private fun IntervalRow(
         )
         ExposedDropdownMenuBox(expanded = expanded, onExpandedChange = { expanded = it }) {
             OutlinedTextField(
-                value = Format.unitName(unit, count),
+                value = Format.unitName(res, unit, count),
                 onValueChange = {},
                 readOnly = true,
                 shape = RoundedCornerShape(12.dp),
@@ -438,7 +448,7 @@ private fun IntervalRow(
             ExposedDropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
                 IntervalUnit.entries.forEach { option ->
                     DropdownMenuItem(
-                        text = { Text(Format.unitName(option, count)) },
+                        text = { Text(Format.unitName(res, option, count)) },
                         onClick = {
                             onUnitChange(option)
                             expanded = false

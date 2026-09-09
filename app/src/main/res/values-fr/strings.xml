@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Rounds</string>
+    <string name="home_title">Rounds</string>
+    <string name="home_all_clear">Tout est fait.</string>
+    <string name="home_none_scheduled">Rien de planifié.</string>
+    <string name="home_new_check">Nouveau contrôle</string>
+    <string name="home_notif_off">Les notifications sont désactivées.</string>
+    <string name="home_turn_on">Activer</string>
+    <string name="home_alarm_off">Alarmes exactes désactivées. Les rappels peuvent tarder.</string>
+    <string name="home_settings">Réglages</string>
+    <string name="home_empty_title">Rien à contrôler</string>
+    <string name="home_empty_body">Ajoutez un contrôle, choisissez les jours et la plage horaire. Enregistrez avec une photo ou un appui.</string>
+    <string name="home_last">Dernier %s</string>
+    <string name="status_done">Fait</string>
+    <string name="status_open">En cours</string>
+    <string name="status_due_in">Dans %s</string>
+    <string name="status_upcoming">À venir</string>
+    <string name="status_finished">Terminé</string>
+    <string name="status_log_only">Journal</string>
+    <string name="headline_done">Fait pour cette plage</string>
+    <string name="headline_open">Ouvert jusqu’à %s</string>
+    <string name="headline_due">Dans %s</string>
+    <string name="headline_next">Prochaine %s</string>
+    <string name="headline_none">Plus de plage</string>
+    <string name="headline_log_only">Journal seul</string>
+    <string name="action_photo">Photo</string>
+    <string name="action_log_check">Enregistrer</string>
+    <string name="action_undo">Annuler</string>
+    <string name="action_cancel">Annuler</string>
+    <string name="action_delete">Supprimer</string>
+    <string name="action_save">Enregistrer</string>
+    <string name="action_create">Créer</string>
+    <string name="action_close">Fermer</string>
+    <string name="action_ok">OK</string>
+    <string name="action_back">Retour</string>
+    <string name="snackbar_logged">%s enregistré</string>
+    <string name="detail_photos">Photos</string>
+    <string name="detail_history">Historique</string>
+    <string name="detail_no_entries">Aucune entrée.</string>
+    <string name="detail_checked">Vérifié</string>
+    <string name="kind_photo">Photo</string>
+    <string name="kind_tap">Appui</string>
+    <string name="detail_edit_note">Modifier la note</string>
+    <string name="detail_pick_library">Choisir dans la galerie</string>
+    <string name="detail_no_type">Aucun mode d’enregistrement activé.</string>
+    <string name="dialog_log_title">Enregistrer un contrôle</string>
+    <string name="dialog_edit_note_title">Modifier la note</string>
+    <string name="dialog_note_label">Note (facultatif)</string>
+    <string name="dialog_log_confirm">Enregistrer</string>
+    <string name="delete_entry_title">Supprimer cette entrée ?</string>
+    <string name="delete_entry_photo_body">L’entrée et sa photo seront supprimées.</string>
+    <string name="delete_entry_body">L’entrée sera supprimée.</string>
+    <string name="day_today">Aujourd’hui</string>
+    <string name="day_yesterday">Hier</string>
+    <string name="edit_new_title">Nouveau contrôle</string>
+    <string name="edit_settings_title">Réglages</string>
+    <string name="edit_name">Nom</string>
+    <string name="edit_notes">Notes (facultatif)</string>
+    <string name="edit_how_logged">Mode d’enregistrement</string>
+    <string name="edit_photo_sub">Appareil photo ou galerie</string>
+    <string name="edit_tap">Appui</string>
+    <string name="edit_tap_sub">Un appui, note facultative</string>
+    <string name="edit_pick_one">Choisissez au moins un mode.</string>
+    <string name="edit_entries_kept">Les entrées existantes sont conservées.</string>
+    <string name="edit_schedules">Planification</string>
+    <string name="edit_no_schedule">Sans planification, aucun rappel.</string>
+    <string name="edit_add_schedule">Ajouter une planification</string>
+    <string name="delete_check_title">Supprimer ce contrôle ?</string>
+    <string name="delete_check_body">Toutes les entrées et photos seront supprimées.</string>
+    <string name="rule_title">Planification</string>
+    <string name="rule_active">Règle active</string>
+    <string name="rule_repeats">Répétition</string>
+    <string name="rule_date">Date</string>
+    <string name="rule_pick_date">Choisir une date</string>
+    <string name="rule_days_week">Jours de la semaine</string>
+    <string name="rule_days_month">Jours du mois</string>
+    <string name="rule_month_hint">Les mois courts utilisent le dernier jour.</string>
+    <string name="rule_interval_label">Intervalle</string>
+    <string name="rule_every">Tous les</string>
+    <string name="rule_interval_hint">Chaque période demande une entrée.</string>
+    <string name="rule_window">Plage horaire</string>
+    <string name="rule_to">à</string>
+    <string name="rule_window_hint">Une entrée doit tomber dans la plage.</string>
+    <string name="rule_window_overnight">Se termine le lendemain.</string>
+    <string name="rule_preview">Aperçu</string>
+    <string name="rule_save">Enregistrer la planification</string>
+    <string name="rule_open_time">Début de la plage</string>
+    <string name="rule_close_time">Fin de la plage</string>
+    <string name="rule_delete">Supprimer la règle</string>
+    <string name="recur_once">Une fois</string>
+    <string name="recur_weekly">Hebdo</string>
+    <string name="recur_monthly">Mensuel</string>
+    <string name="recur_interval">Intervalle</string>
+    <string name="rule_no_date">Aucune date</string>
+    <string name="rule_no_days">Aucun jour choisi</string>
+    <string name="photos_title">Photos</string>
+    <string name="photos_summary">%1$d photos, %2$s</string>
+    <string name="photos_long_press">Appui long pour sélectionner</string>
+    <string name="photos_selected">%d sélectionnées</string>
+    <string name="photos_select_all">Tout sélectionner</string>
+    <string name="photos_empty">Aucune photo.</string>
+    <string name="photos_delete_body">Les entrées et les fichiers seront supprimés.</string>
+    <string name="notif_channel_name">Contrôles manqués</string>
+    <string name="notif_channel_desc">Vous prévient quand une plage se termine sans entrée.</string>
+    <string name="notif_title">%s non enregistré</string>
+    <string name="notif_text">Aucune entrée dans %s</string>
+    <string name="countdown_dh">%1$d j %2$d h</string>
+    <string name="countdown_hm">%1$d h %2$d min</string>
+    <string name="countdown_m">%d min</string>
+    <plurals name="home_open_count">
+        <item quantity="one">%d en cours</item>
+        <item quantity="other">%d en cours</item>
+    </plurals>
+    <plurals name="photos_delete_title">
+        <item quantity="one">Supprimer %d photo ?</item>
+        <item quantity="other">Supprimer %d photos ?</item>
+    </plurals>
+    <plurals name="every_minutes">
+        <item quantity="one">Toutes les %d minute</item>
+        <item quantity="other">Toutes les %d minutes</item>
+    </plurals>
+    <plurals name="every_hours">
+        <item quantity="one">Toutes les %d heure</item>
+        <item quantity="other">Toutes les %d heures</item>
+    </plurals>
+    <plurals name="every_days">
+        <item quantity="one">Tous les %d jour</item>
+        <item quantity="other">Tous les %d jours</item>
+    </plurals>
+    <plurals name="every_weeks">
+        <item quantity="one">Toutes les %d semaine</item>
+        <item quantity="other">Toutes les %d semaines</item>
+    </plurals>
+    <plurals name="every_months">
+        <item quantity="one">Tous les %d mois</item>
+        <item quantity="other">Tous les %d mois</item>
+    </plurals>
+    <plurals name="unit_minutes">
+        <item quantity="one">minute</item>
+        <item quantity="other">minutes</item>
+    </plurals>
+    <plurals name="unit_hours">
+        <item quantity="one">heure</item>
+        <item quantity="other">heures</item>
+    </plurals>
+    <plurals name="unit_days">
+        <item quantity="one">jour</item>
+        <item quantity="other">jours</item>
+    </plurals>
+    <plurals name="unit_weeks">
+        <item quantity="one">semaine</item>
+        <item quantity="other">semaines</item>
+    </plurals>
+    <plurals name="unit_months">
+        <item quantity="one">mois</item>
+        <item quantity="other">mois</item>
+    </plurals>
+    <string name="every_1_minute">Toutes les minutes</string>
+    <string name="every_1_hour">Toutes les heures</string>
+    <string name="every_1_day">Tous les jours</string>
+    <string name="every_1_week">Toutes les semaines</string>
+    <string name="every_1_month">Tous les mois</string>
+</resources>

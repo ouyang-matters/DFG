@@ -23,6 +23,9 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
+import com.anan.dfg.R
 import com.anan.dfg.data.CheckWindow
 import com.anan.dfg.schedule.ItemStatus
 import com.anan.dfg.ui.theme.AppTheme
@@ -126,7 +129,8 @@ fun WindowTrack(
             Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
         ) {
-            val (startLabel, endLabel) = Format.windowEndpoints(window)
+            val res = LocalContext.current.resources
+            val (startLabel, endLabel) = Format.windowEndpoints(res, window)
             Text(
                 startLabel,
                 style = AppTheme.timeStyle,
@@ -180,13 +184,14 @@ private const val URGENT_FRACTION = 0.2
 fun statusTone(status: ItemStatus?, now: Long): StatusTone {
     val palette = AppTheme.status
     val outline = MaterialTheme.colorScheme.outline
+    val res = LocalContext.current.resources
     val active = status?.activeWindow
 
     if (status == null || !status.hasEnabledRule) {
         return StatusTone(
             StatusKind.NO_SCHEDULE,
-            "Log only",
-            "Logging only, no reminders",
+            stringResource(R.string.status_log_only),
+            stringResource(R.string.headline_log_only),
             palette.idle,
             palette.onIdle,
             outline,
@@ -195,8 +200,8 @@ fun statusTone(status: ItemStatus?, now: Long): StatusTone {
     if (active != null && status.activeSatisfied) {
         return StatusTone(
             StatusKind.DONE,
-            "Done",
-            "Done for this window",
+            stringResource(R.string.status_done),
+            stringResource(R.string.headline_done),
             palette.done,
             palette.onDone,
             MaterialTheme.colorScheme.primary,
@@ -207,10 +212,11 @@ fun statusTone(status: ItemStatus?, now: Long): StatusTone {
         val span = (active.endMillis - active.startMillis).coerceAtLeast(1L)
         val threshold = maxOf(URGENT_FLOOR_MILLIS, (span * URGENT_FRACTION).toLong())
         return if (remaining <= threshold) {
+            val left = Format.countdown(res, now, active.endMillis)
             StatusTone(
                 StatusKind.URGENT,
-                "Due in " + Format.countdown(now, active.endMillis),
-                "Due in " + Format.countdown(now, active.endMillis),
+                stringResource(R.string.status_due_in, left),
+                stringResource(R.string.headline_due, left),
                 palette.overdue,
                 palette.onOverdue,
                 MaterialTheme.colorScheme.error,
@@ -218,8 +224,8 @@ fun statusTone(status: ItemStatus?, now: Long): StatusTone {
         } else {
             StatusTone(
                 StatusKind.OPEN,
-                "Open",
-                "Open until " + Format.time(active.endMillis),
+                stringResource(R.string.status_open),
+                stringResource(R.string.headline_open, Format.time(active.endMillis)),
                 palette.due,
                 palette.onDue,
                 MaterialTheme.colorScheme.tertiary,
@@ -230,8 +236,8 @@ fun statusTone(status: ItemStatus?, now: Long): StatusTone {
     return if (next != null) {
         StatusTone(
             StatusKind.UPCOMING,
-            "Upcoming",
-            "Next " + Format.window(next),
+            stringResource(R.string.status_upcoming),
+            stringResource(R.string.headline_next, Format.window(res, next)),
             palette.idle,
             palette.onIdle,
             outline,
@@ -239,8 +245,8 @@ fun statusTone(status: ItemStatus?, now: Long): StatusTone {
     } else {
         StatusTone(
             StatusKind.FINISHED,
-            "Finished",
-            "No windows left",
+            stringResource(R.string.status_finished),
+            stringResource(R.string.headline_none),
             palette.idle,
             palette.onIdle,
             outline,

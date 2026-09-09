@@ -1,4 +1,164 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Rounds</string>
+    <string name="home_title">Rounds</string>
+    <string name="home_all_clear">All clear.</string>
+    <string name="home_none_scheduled">Nothing scheduled yet.</string>
+    <string name="home_new_check">New check</string>
+    <string name="home_notif_off">Notifications are off.</string>
+    <string name="home_turn_on">Turn on</string>
+    <string name="home_alarm_off">Exact alarms are off. Reminders may be late.</string>
+    <string name="home_settings">Settings</string>
+    <string name="home_empty_title">Nothing to check yet</string>
+    <string name="home_empty_body">Add a check, pick the days and the time window. Log it with a photo or a tap.</string>
+    <string name="home_last">Last %s</string>
+    <string name="status_done">Done</string>
+    <string name="status_open">Open</string>
+    <string name="status_due_in">Due in %s</string>
+    <string name="status_upcoming">Upcoming</string>
+    <string name="status_finished">Finished</string>
+    <string name="status_log_only">Log only</string>
+    <string name="headline_done">Done for this window</string>
+    <string name="headline_open">Open until %s</string>
+    <string name="headline_due">Due in %s</string>
+    <string name="headline_next">Next %s</string>
+    <string name="headline_none">No windows left</string>
+    <string name="headline_log_only">Logging only</string>
+    <string name="action_photo">Photo</string>
+    <string name="action_log_check">Log check</string>
+    <string name="action_undo">Undo</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_save">Save</string>
+    <string name="action_create">Create</string>
+    <string name="action_close">Close</string>
+    <string name="action_ok">OK</string>
+    <string name="action_back">Back</string>
+    <string name="snackbar_logged">Logged %s</string>
+    <string name="detail_photos">Photos</string>
+    <string name="detail_history">History</string>
+    <string name="detail_no_entries">No entries yet.</string>
+    <string name="detail_checked">Checked</string>
+    <string name="kind_photo">Photo</string>
+    <string name="kind_tap">Tap</string>
+    <string name="detail_edit_note">Edit note</string>
+    <string name="detail_pick_library">Pick from library</string>
+    <string name="detail_no_type">No check type enabled.</string>
+    <string name="dialog_log_title">Log a check</string>
+    <string name="dialog_edit_note_title">Edit note</string>
+    <string name="dialog_note_label">Note (optional)</string>
+    <string name="dialog_log_confirm">Log</string>
+    <string name="delete_entry_title">Delete this entry?</string>
+    <string name="delete_entry_photo_body">The entry and its photo will be deleted.</string>
+    <string name="delete_entry_body">The entry will be deleted.</string>
+    <string name="day_today">Today</string>
+    <string name="day_yesterday">Yesterday</string>
+    <string name="edit_new_title">New check</string>
+    <string name="edit_settings_title">Settings</string>
+    <string name="edit_name">Name</string>
+    <string name="edit_notes">Notes (optional)</string>
+    <string name="edit_how_logged">How it can be logged</string>
+    <string name="edit_photo_sub">Camera or library</string>
+    <string name="edit_tap">Tap</string>
+    <string name="edit_tap_sub">One tap, optional note</string>
+    <string name="edit_pick_one">Pick at least one.</string>
+    <string name="edit_entries_kept">Existing entries are kept.</string>
+    <string name="edit_schedules">Schedules</string>
+    <string name="edit_no_schedule">No schedule means logging only.</string>
+    <string name="edit_add_schedule">Add a schedule</string>
+    <string name="delete_check_title">Delete this check?</string>
+    <string name="delete_check_body">All entries and photos will be deleted.</string>
+    <string name="rule_title">Schedule</string>
+    <string name="rule_active">Rule active</string>
+    <string name="rule_repeats">Repeats</string>
+    <string name="rule_date">Date</string>
+    <string name="rule_pick_date">Pick a date</string>
+    <string name="rule_days_week">Days of the week</string>
+    <string name="rule_days_month">Days of the month</string>
+    <string name="rule_month_hint">Short months use the last day.</string>
+    <string name="rule_interval_label">Interval</string>
+    <string name="rule_every">Every</string>
+    <string name="rule_interval_hint">Each period needs one entry.</string>
+    <string name="rule_window">Window</string>
+    <string name="rule_to">to</string>
+    <string name="rule_window_hint">One entry must fall inside the window.</string>
+    <string name="rule_window_overnight">Ends the next day.</string>
+    <string name="rule_preview">Preview</string>
+    <string name="rule_save">Save schedule</string>
+    <string name="rule_open_time">Window opens</string>
+    <string name="rule_close_time">Window closes</string>
+    <string name="rule_delete">Delete rule</string>
+    <string name="recur_once">Once</string>
+    <string name="recur_weekly">Weekly</string>
+    <string name="recur_monthly">Monthly</string>
+    <string name="recur_interval">Interval</string>
+    <string name="rule_no_date">No date</string>
+    <string name="rule_no_days">No days picked</string>
+    <string name="photos_title">Photos</string>
+    <string name="photos_summary">%1$d photos, %2$s</string>
+    <string name="photos_long_press">Long press to select</string>
+    <string name="photos_selected">%d selected</string>
+    <string name="photos_select_all">Select all</string>
+    <string name="photos_empty">No photos yet.</string>
+    <string name="photos_delete_body">Entries and files will be deleted.</string>
+    <string name="notif_channel_name">Missed checks</string>
+    <string name="notif_channel_desc">Reminds you when a window closes with nothing logged.</string>
+    <string name="notif_title">%s not logged</string>
+    <string name="notif_text">Nothing logged in %s</string>
+    <string name="countdown_dh">%1$dd %2$dh</string>
+    <string name="countdown_hm">%1$dh %2$dm</string>
+    <string name="countdown_m">%dm</string>
+    <plurals name="home_open_count">
+        <item quantity="one">%d open</item>
+        <item quantity="other">%d open</item>
+    </plurals>
+    <plurals name="photos_delete_title">
+        <item quantity="one">Delete %d photo?</item>
+        <item quantity="other">Delete %d photos?</item>
+    </plurals>
+    <plurals name="every_minutes">
+        <item quantity="one">Every %d minute</item>
+        <item quantity="other">Every %d minutes</item>
+    </plurals>
+    <plurals name="every_hours">
+        <item quantity="one">Every %d hour</item>
+        <item quantity="other">Every %d hours</item>
+    </plurals>
+    <plurals name="every_days">
+        <item quantity="one">Every %d day</item>
+        <item quantity="other">Every %d days</item>
+    </plurals>
+    <plurals name="every_weeks">
+        <item quantity="one">Every %d week</item>
+        <item quantity="other">Every %d weeks</item>
+    </plurals>
+    <plurals name="every_months">
+        <item quantity="one">Every %d month</item>
+        <item quantity="other">Every %d months</item>
+    </plurals>
+    <plurals name="unit_minutes">
+        <item quantity="one">minute</item>
+        <item quantity="other">minutes</item>
+    </plurals>
+    <plurals name="unit_hours">
+        <item quantity="one">hour</item>
+        <item quantity="other">hours</item>
+    </plurals>
+    <plurals name="unit_days">
+        <item quantity="one">day</item>
+        <item quantity="other">days</item>
+    </plurals>
+    <plurals name="unit_weeks">
+        <item quantity="one">week</item>
+        <item quantity="other">weeks</item>
+    </plurals>
+    <plurals name="unit_months">
+        <item quantity="one">month</item>
+        <item quantity="other">months</item>
+    </plurals>
+    <string name="every_1_minute">Every minute</string>
+    <string name="every_1_hour">Every hour</string>
+    <string name="every_1_day">Every day</string>
+    <string name="every_1_week">Every week</string>
+    <string name="every_1_month">Every month</string>
 </resources>

@@ -52,12 +52,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
+import com.anan.dfg.R
 import com.anan.dfg.data.CheckEvent
 import com.anan.dfg.data.CheckKind
 import com.anan.dfg.data.ChecklistItem
@@ -137,6 +139,7 @@ fun ItemDetailScreen(
 ) {
     val context = LocalContext.current
     val repo = remember { Repository.get(context) }
+    val res = context.resources
     val vm: DetailViewModel =
         viewModel(factory = SimpleViewModelFactory { DetailViewModel(repo, itemId) })
 
@@ -165,17 +168,26 @@ fun ItemDetailScreen(
                 ),
                 navigationIcon = {
                     IconButton(onClick = onBack) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                        Icon(
+                            Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = stringResource(R.string.action_back),
+                        )
                     }
                 },
                 actions = {
                     if (current?.allowPhoto == true) {
                         IconButton(onClick = onManagePhotos) {
-                            Icon(Icons.Default.PhotoLibrary, contentDescription = "Photos")
+                            Icon(
+                                Icons.Default.PhotoLibrary,
+                                contentDescription = stringResource(R.string.detail_photos),
+                            )
                         }
                     }
                     IconButton(onClick = onEditItem) {
-                        Icon(Icons.Default.Tune, contentDescription = "Settings")
+                        Icon(
+                            Icons.Default.Tune,
+                            contentDescription = stringResource(R.string.edit_settings_title),
+                        )
                     }
                 },
             )
@@ -212,7 +224,7 @@ fun ItemDetailScreen(
                 StatusPanel(status, rules)
                 Spacer(Modifier.height(28.dp))
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Overline("History")
+                    Overline(stringResource(R.string.detail_history))
                     Spacer(Modifier.width(8.dp))
                     Text(
                         events.size.toString(),
@@ -226,7 +238,7 @@ fun ItemDetailScreen(
             if (events.isEmpty()) {
                 item {
                     Text(
-                        "No checks logged yet.",
+                        stringResource(R.string.detail_no_entries),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier.padding(vertical = 20.dp),
@@ -261,9 +273,9 @@ fun ItemDetailScreen(
 
     if (noteDialog) {
         NoteDialog(
-            title = "Log a check",
+            title = stringResource(R.string.dialog_log_title),
             initial = "",
-            confirmLabel = "Log",
+            confirmLabel = stringResource(R.string.dialog_log_confirm),
             onDismiss = { noteDialog = false },
             onConfirm = {
                 vm.addCheck(it)
@@ -274,9 +286,9 @@ fun ItemDetailScreen(
 
     editing?.let { target ->
         NoteDialog(
-            title = "Edit note",
+            title = stringResource(R.string.dialog_edit_note_title),
             initial = target.note ?: "",
-            confirmLabel = "Save",
+            confirmLabel = stringResource(R.string.action_save),
             onDismiss = { editing = null },
             onConfirm = {
                 vm.updateNote(target, it)
@@ -288,23 +300,29 @@ fun ItemDetailScreen(
     deleting?.let { target ->
         AlertDialog(
             onDismissRequest = { deleting = null },
-            title = { Text("Delete this entry?") },
+            title = { Text(stringResource(R.string.delete_entry_title)) },
             text = {
                 Text(
-                    if (target.photoPath != null) {
-                        "The entry and its photo file will be removed. This can't be undone."
-                    } else {
-                        "This entry will be removed. This can't be undone."
-                    },
+                    stringResource(
+                        if (target.photoPath != null) {
+                            R.string.delete_entry_photo_body
+                        } else {
+                            R.string.delete_entry_body
+                        },
+                    ),
                 )
             },
             confirmButton = {
                 TextButton(onClick = {
                     vm.deleteEvent(target)
                     deleting = null
-                }) { Text("Delete") }
+                }) { Text(stringResource(R.string.action_delete)) }
             },
-            dismissButton = { TextButton(onClick = { deleting = null }) { Text("Cancel") } },
+            dismissButton = {
+                TextButton(onClick = { deleting = null }) {
+                    Text(stringResource(R.string.action_cancel))
+                }
+            },
         )
     }
 
@@ -338,7 +356,7 @@ private fun CheckInBar(
         ) {
             if (!item.allowPhoto && !item.allowButton) {
                 Text(
-                    "No check type is enabled. Turn one on in settings.",
+                    stringResource(R.string.detail_no_type),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
@@ -355,10 +373,14 @@ private fun CheckInBar(
                 ) {
                     Icon(Icons.Default.PhotoCamera, null, Modifier.size(18.dp))
                     Spacer(Modifier.width(8.dp))
-                    Text("Photo")
+                    Text(stringResource(R.string.action_photo))
                 }
                 OutlinedButton(onClick = onLibrary, shape = RoundedCornerShape(14.dp)) {
-                    Icon(Icons.Default.PhotoLibrary, contentDescription = "Pick from library", modifier = Modifier.size(18.dp))
+                    Icon(
+                        Icons.Default.PhotoLibrary,
+                        contentDescription = stringResource(R.string.detail_pick_library),
+                        modifier = Modifier.size(18.dp),
+                    )
                 }
             }
             if (item.allowButton) {
@@ -381,7 +403,7 @@ private fun CheckInBar(
                 ) {
                     Icon(Icons.Default.TaskAlt, null, Modifier.size(18.dp))
                     Spacer(Modifier.width(8.dp))
-                    Text("Log check")
+                    Text(stringResource(R.string.action_log_check))
                 }
             }
         }
@@ -404,7 +426,10 @@ private fun StatusPanel(status: ItemStatus?, rules: List<ReminderRule>) {
             val focus = status?.focusWindow
             if (focus != null) {
                 Spacer(Modifier.height(4.dp))
-                Overline(Format.window(focus), color = tone.content.copy(alpha = 0.7f))
+                Overline(
+                    Format.window(LocalContext.current.resources, focus),
+                    color = tone.content.copy(alpha = 0.7f),
+                )
                 Spacer(Modifier.height(14.dp))
                 WindowTrack(
                     window = focus,
@@ -416,9 +441,10 @@ private fun StatusPanel(status: ItemStatus?, rules: List<ReminderRule>) {
             val enabled = rules.filter { it.enabled }
             if (enabled.isNotEmpty()) {
                 Spacer(Modifier.height(16.dp))
+                val res = LocalContext.current.resources
                 enabled.forEach {
                     Text(
-                        Format.rule(it),
+                        Format.rule(res, it),
                         style = MaterialTheme.typography.bodySmall,
                         color = tone.content.copy(alpha = 0.8f),
                     )
@@ -434,7 +460,10 @@ private fun DayHeading(date: LocalDate) {
         Modifier.fillMaxWidth().padding(top = 18.dp, bottom = 10.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Overline(Format.dayHeading(date), color = MaterialTheme.colorScheme.onSurface)
+        Overline(
+            Format.dayHeading(LocalContext.current.resources, date),
+            color = MaterialTheme.colorScheme.onSurface,
+        )
         Spacer(Modifier.width(12.dp))
         Surface(
             color = MaterialTheme.colorScheme.outlineVariant,
@@ -499,7 +528,7 @@ private fun TimelineEntry(
                 if (photoFile != null) {
                     AsyncImage(
                         model = photoFile,
-                        contentDescription = "Check photo",
+                        contentDescription = stringResource(R.string.kind_photo),
                         contentScale = ContentScale.Crop,
                         modifier = Modifier
                             .fillMaxWidth()
@@ -513,7 +542,7 @@ private fun TimelineEntry(
                     Text(event.note, style = MaterialTheme.typography.bodyMedium)
                 } else if (photoFile == null) {
                     Text(
-                        "Checked",
+                        stringResource(R.string.detail_checked),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
@@ -524,14 +553,28 @@ private fun TimelineEntry(
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Overline(
-                        if (event.kind == CheckKind.PHOTO) "Photo" else "Tap",
+                        stringResource(
+                            if (event.kind == CheckKind.PHOTO) {
+                                R.string.kind_photo
+                            } else {
+                                R.string.kind_tap
+                            },
+                        ),
                         Modifier.weight(1f),
                     )
                     IconButton(onClick = onEditNote, modifier = Modifier.size(34.dp)) {
-                        Icon(Icons.Default.Edit, contentDescription = "Edit note", modifier = Modifier.size(16.dp))
+                        Icon(
+                            Icons.Default.Edit,
+                            contentDescription = stringResource(R.string.detail_edit_note),
+                            modifier = Modifier.size(16.dp),
+                        )
                     }
                     IconButton(onClick = onDelete, modifier = Modifier.size(34.dp)) {
-                        Icon(Icons.Default.Delete, contentDescription = "Delete", modifier = Modifier.size(16.dp))
+                        Icon(
+                            Icons.Default.Delete,
+                            contentDescription = stringResource(R.string.action_delete),
+                            modifier = Modifier.size(16.dp),
+                        )
                     }
                 }
             }
@@ -556,13 +599,15 @@ fun NoteDialog(
                 OutlinedTextField(
                     value = text,
                     onValueChange = { text = it },
-                    label = { Text("Note (optional)") },
+                    label = { Text(stringResource(R.string.dialog_note_label)) },
                     shape = RoundedCornerShape(12.dp),
                     minLines = 2,
                 )
             }
         },
         confirmButton = { TextButton(onClick = { onConfirm(text) }) { Text(confirmLabel) } },
-        dismissButton = { TextButton(onClick = onDismiss) { Text("Cancel") } },
+        dismissButton = {
+            TextButton(onClick = onDismiss) { Text(stringResource(R.string.action_cancel)) }
+        },
     )
 }

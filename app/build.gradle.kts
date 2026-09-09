@@ -15,14 +15,16 @@ val keystoreProperties = Properties().apply {
 
 android {
     namespace = "com.anan.dfg"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.anan.dfg"
         minSdk = 26
-        targetSdk = 34
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
+        // Keeps only the locales the app actually ships translations for.
+        androidResources.localeFilters += listOf("en", "zh-rCN", "zh-rTW", "fr")
     }
 
     signingConfigs {
@@ -44,7 +46,8 @@ android {
             if (keystoreProperties.getProperty("storeFile") != null) {
                 signingConfig = signingConfigs.getByName("release")
             }
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
         debug {

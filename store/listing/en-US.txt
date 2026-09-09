@@ -1,0 +1,36 @@
+App name (max 30)
+Rounds
+
+Short description (max 80, currently 60)
+Check things off, keep proof, and get a nudge if you forget.
+
+Full description (max 4000, currently 1919)
+I have pretty bad OCD, so my brain loves turning tiny things into full investigations. Did I turn off the stove? Did I close the garage door? Did I lock the thing I definitely remember locking five minutes ago?
+
+I used to take photos of everything just so Future Me would stop freaking out. That worked, except my camera roll became 40% appliances, doors and switches. And I am way too busy to organise a pile of photos I will probably never look at.
+
+So I made this. A simple place to check things off and keep proof when I need it, without turning my photo gallery into an evidence archive for my own brain.
+
+HOW IT WORKS
+
+Add a check, then say when it should happen. A specific date, certain days of the week, certain days of the month, or every so many minutes, hours, days, weeks or months.
+
+Each schedule gets a time window. One entry has to land inside that window. If the window closes with nothing logged, you get a reminder. Checking early does not count for a window that has not opened yet, which is the whole point.
+
+TWO WAYS TO LOG
+
+Take a photo when you want proof, or just tap when you do not. Notes are optional either way. You choose which kinds a check accepts, and you can change your mind later without losing anything you already logged.
+
+PHOTOS THAT STAY OUT OF YOUR WAY
+
+Every photo lives inside the app, filed under the check it belongs to, never mixed into your camera roll. Browse them as a grid, select several at once, and delete the entry and the file together.
+
+A CLEAR TIMELINE
+
+Every entry keeps its time, its note and its photo, grouped by day, so you can look back and see exactly when something was done.
+
+PRIVATE BY DEFAULT
+
+No account, no sign in, no internet permission at all. Nothing leaves your phone. Nothing is uploaded, tracked or shared, because the app cannot reach the network in the first place.
+
+Available in English, French, Simplified Chinese and Traditional Chinese.

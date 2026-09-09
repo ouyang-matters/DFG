@@ -47,12 +47,15 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.pluralStringResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
+import com.anan.dfg.R
 import com.anan.dfg.data.CheckEvent
 import com.anan.dfg.data.Repository
 import com.anan.dfg.ui.SimpleViewModelFactory
@@ -99,6 +102,7 @@ fun PhotoManagerScreen(itemId: Long, onBack: () -> Unit) {
     val vm: PhotoManagerViewModel =
         viewModel(factory = SimpleViewModelFactory { PhotoManagerViewModel(repo, itemId) })
 
+    val res = context.resources
     val photos by vm.photos.collectAsState()
     var selected by remember { mutableStateOf(setOf<Long>()) }
     var confirmDelete by remember { mutableStateOf(false) }
@@ -115,7 +119,7 @@ fun PhotoManagerScreen(itemId: Long, onBack: () -> Unit) {
                 title = {
                     if (selecting) {
                         Text(
-                            selected.size.toString() + " selected",
+                            stringResource(R.string.photos_selected, selected.size),
                             style = MaterialTheme.typography.titleLarge,
                         )
                     }
@@ -125,7 +129,10 @@ fun PhotoManagerScreen(itemId: Long, onBack: () -> Unit) {
                 ),
                 navigationIcon = {
                     IconButton(onClick = { if (selecting) selected = emptySet() else onBack() }) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                        Icon(
+                            Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = stringResource(R.string.action_back),
+                        )
                     }
                 },
                 actions = {
@@ -137,14 +144,17 @@ fun PhotoManagerScreen(itemId: Long, onBack: () -> Unit) {
                                 photos.map { it.id }.toSet()
                             }
                         }) {
-                            Icon(Icons.Default.SelectAll, contentDescription = "Select all")
+                            Icon(
+                                Icons.Default.SelectAll,
+                                contentDescription = stringResource(R.string.photos_select_all),
+                            )
                         }
                     }
                     if (selecting) {
                         IconButton(onClick = { confirmDelete = true }) {
                             Icon(
                                 Icons.Default.DeleteOutline,
-                                contentDescription = "Delete",
+                                contentDescription = stringResource(R.string.action_delete),
                                 tint = MaterialTheme.colorScheme.error,
                             )
                         }
@@ -156,18 +166,24 @@ fun PhotoManagerScreen(itemId: Long, onBack: () -> Unit) {
         Column(Modifier.fillMaxSize().padding(padding)) {
             Column(Modifier.padding(horizontal = 20.dp)) {
                 if (!selecting) {
-                    Text("Photos", style = MaterialTheme.typography.displaySmall)
+                    Text(
+                        stringResource(R.string.photos_title),
+                        style = MaterialTheme.typography.displaySmall,
+                    )
                     androidx.compose.foundation.layout.Spacer(Modifier.height(6.dp))
                 }
                 Overline(
-                    photos.size.toString() + " photos · " + Format.fileSize(vm.bytesUsed) +
-                        " · long-press to select",
+                    stringResource(
+                        R.string.photos_summary,
+                        photos.size,
+                        Format.fileSize(res, vm.bytesUsed),
+                    ) + "  ·  " + stringResource(R.string.photos_long_press),
                 )
             }
 
             if (photos.isEmpty()) {
                 Text(
-                    "No photos logged for this check yet.",
+                    stringResource(R.string.photos_empty),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     textAlign = TextAlign.Center,
@@ -203,17 +219,21 @@ fun PhotoManagerScreen(itemId: Long, onBack: () -> Unit) {
     if (confirmDelete) {
         AlertDialog(
             onDismissRequest = { confirmDelete = false },
-            title = { Text("Delete " + selected.size + " photos?") },
-            text = { Text("Their log entries and image files are removed. This cannot be undone.") },
+            title = {
+                Text(pluralStringResource(R.plurals.photos_delete_title, selected.size, selected.size))
+            },
+            text = { Text(stringResource(R.string.photos_delete_body)) },
             confirmButton = {
                 TextButton(onClick = {
                     val target = selected
                     confirmDelete = false
                     vm.delete(target) { selected = emptySet() }
-                }) { Text("Delete") }
+                }) { Text(stringResource(R.string.action_delete)) }
             },
             dismissButton = {
-                TextButton(onClick = { confirmDelete = false }) { Text("Cancel") }
+                TextButton(onClick = { confirmDelete = false }) {
+                    Text(stringResource(R.string.action_cancel))
+                }
             },
         )
     }
@@ -221,7 +241,7 @@ fun PhotoManagerScreen(itemId: Long, onBack: () -> Unit) {
     preview?.let { event ->
         AlertDialog(
             onDismissRequest = { preview = null },
-            title = { Text(Format.dateTime(event.timestamp)) },
+            title = { Text(Format.dateTime(res, event.timestamp)) },
             text = {
                 Column {
                     AsyncImage(
@@ -235,13 +255,17 @@ fun PhotoManagerScreen(itemId: Long, onBack: () -> Unit) {
                     }
                 }
             },
-            confirmButton = { TextButton(onClick = { preview = null }) { Text("Close") } },
+            confirmButton = {
+                TextButton(onClick = { preview = null }) {
+                    Text(stringResource(R.string.action_close))
+                }
+            },
             dismissButton = {
                 TextButton(onClick = {
                     val target = setOf(event.id)
                     preview = null
                     vm.delete(target) {}
-                }) { Text("Delete") }
+                }) { Text(stringResource(R.string.action_delete)) }
             },
         )
     }

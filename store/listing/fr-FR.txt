@@ -1,0 +1,36 @@
+App name (max 30)
+Rounds
+
+Short description (max 80, currently 64)
+Cochez, gardez une preuve, et recevez un rappel si vous oubliez.
+
+Full description (max 4000, currently 2090)
+J'ai des TOC assez marqués, et mon cerveau adore transformer un détail en enquête complète. Ai-je éteint la plaque ? Ai-je fermé la porte du garage ? Ai-je verrouillé ce truc que je me souviens parfaitement avoir verrouillé il y a cinq minutes ?
+
+Je prenais des photos de tout pour que mon moi futur arrête de paniquer. Ça marchait, sauf que ma galerie est devenue 40% d'appareils, de portes et d'interrupteurs. Et je n'ai vraiment pas le temps de trier des photos que je ne regarderai sans doute jamais.
+
+Alors j'ai fait ceci. Un endroit simple pour cocher ce qui est fait et garder une preuve quand j'en ai besoin, sans transformer ma galerie en archive de preuves pour mon propre cerveau.
+
+COMMENT ÇA MARCHE
+
+Ajoutez un contrôle, puis dites quand il doit avoir lieu. Une date précise, certains jours de la semaine, certains jours du mois, ou toutes les x minutes, heures, jours, semaines ou mois.
+
+Chaque planification a une plage horaire. Une entrée doit tomber dans cette plage. Si la plage se termine sans rien, vous recevez un rappel. Cocher en avance ne compte pas pour une plage qui n'a pas encore commencé, et c'est tout l'intérêt.
+
+DEUX FAÇONS D'ENREGISTRER
+
+Prenez une photo quand vous voulez une preuve, ou faites simplement un appui. La note reste facultative dans les deux cas. Vous choisissez ce que chaque contrôle accepte, et vous pouvez changer d'avis plus tard sans rien perdre.
+
+DES PHOTOS QUI NE VOUS ENCOMBRENT PAS
+
+Chaque photo reste dans l'application, classée sous le contrôle auquel elle appartient, jamais mêlée à votre galerie. Parcourez-les en grille, sélectionnez-en plusieurs, et supprimez l'entrée et le fichier ensemble.
+
+UN HISTORIQUE CLAIR
+
+Chaque entrée garde son heure, sa note et sa photo, groupées par jour, pour revoir exactement quand une chose a été faite.
+
+PRIVÉ PAR DÉFAUT
+
+Pas de compte, pas de connexion, aucune permission Internet. Rien ne quitte votre téléphone. Rien n'est envoyé, suivi ni partagé, car l'application ne peut tout simplement pas accéder au réseau.
+
+Disponible en anglais, français, chinois simplifié et chinois traditionnel.

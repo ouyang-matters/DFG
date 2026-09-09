@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Rounds</string>
+    <string name="home_title">Rounds</string>
+    <string name="home_all_clear">全部完成。</string>
+    <string name="home_none_scheduled">還沒有安排。</string>
+    <string name="home_new_check">新增檢查</string>
+    <string name="home_notif_off">通知已關閉。</string>
+    <string name="home_turn_on">開啟</string>
+    <string name="home_alarm_off">精確鬧鐘已關閉，提醒可能延遲。</string>
+    <string name="home_settings">設定</string>
+    <string name="home_empty_title">還沒有檢查項</string>
+    <string name="home_empty_body">新增一項檢查，選擇重複的日子和時間範圍。用照片或點一下記錄。</string>
+    <string name="home_last">上次 %s</string>
+    <string name="status_done">已完成</string>
+    <string name="status_open">進行中</string>
+    <string name="status_due_in">還剩 %s</string>
+    <string name="status_upcoming">即將開始</string>
+    <string name="status_finished">已結束</string>
+    <string name="status_log_only">僅記錄</string>
+    <string name="headline_done">本時段已完成</string>
+    <string name="headline_open">開放至 %s</string>
+    <string name="headline_due">還剩 %s</string>
+    <string name="headline_next">下次 %s</string>
+    <string name="headline_none">沒有更多時段</string>
+    <string name="headline_log_only">僅記錄，不提醒</string>
+    <string name="action_photo">照片</string>
+    <string name="action_log_check">記錄</string>
+    <string name="action_undo">復原</string>
+    <string name="action_cancel">取消</string>
+    <string name="action_delete">刪除</string>
+    <string name="action_save">儲存</string>
+    <string name="action_create">建立</string>
+    <string name="action_close">關閉</string>
+    <string name="action_ok">確定</string>
+    <string name="action_back">返回</string>
+    <string name="snackbar_logged">已記錄 %s</string>
+    <string name="detail_photos">照片</string>
+    <string name="detail_history">記錄</string>
+    <string name="detail_no_entries">還沒有記錄。</string>
+    <string name="detail_checked">已檢查</string>
+    <string name="kind_photo">照片</string>
+    <string name="kind_tap">點擊</string>
+    <string name="detail_edit_note">編輯備註</string>
+    <string name="detail_pick_library">從相簿選擇</string>
+    <string name="detail_no_type">未啟用任何記錄方式。</string>
+    <string name="dialog_log_title">記錄一次檢查</string>
+    <string name="dialog_edit_note_title">編輯備註</string>
+    <string name="dialog_note_label">備註（可選）</string>
+    <string name="dialog_log_confirm">記錄</string>
+    <string name="delete_entry_title">刪除這筆記錄？</string>
+    <string name="delete_entry_photo_body">記錄和照片都會被刪除。</string>
+    <string name="delete_entry_body">這筆記錄會被刪除。</string>
+    <string name="day_today">今天</string>
+    <string name="day_yesterday">昨天</string>
+    <string name="edit_new_title">新增檢查</string>
+    <string name="edit_settings_title">設定</string>
+    <string name="edit_name">名稱</string>
+    <string name="edit_notes">說明（可選）</string>
+    <string name="edit_how_logged">記錄方式</string>
+    <string name="edit_photo_sub">拍照或從相簿選擇</string>
+    <string name="edit_tap">點擊</string>
+    <string name="edit_tap_sub">點一下，可加備註</string>
+    <string name="edit_pick_one">至少選擇一種。</string>
+    <string name="edit_entries_kept">已有的記錄會保留。</string>
+    <string name="edit_schedules">時間安排</string>
+    <string name="edit_no_schedule">沒有安排就只記錄，不提醒。</string>
+    <string name="edit_add_schedule">新增安排</string>
+    <string name="delete_check_title">刪除這個檢查項？</string>
+    <string name="delete_check_body">所有記錄和照片都會被刪除。</string>
+    <string name="rule_title">時間安排</string>
+    <string name="rule_active">啟用</string>
+    <string name="rule_repeats">重複</string>
+    <string name="rule_date">日期</string>
+    <string name="rule_pick_date">選擇日期</string>
+    <string name="rule_days_week">每週的哪幾天</string>
+    <string name="rule_days_month">每月的哪幾天</string>
+    <string name="rule_month_hint">當月天數不足時用最後一天。</string>
+    <string name="rule_interval_label">間隔</string>
+    <string name="rule_every">每</string>
+    <string name="rule_interval_hint">每個週期需要一筆記錄。</string>
+    <string name="rule_window">時間範圍</string>
+    <string name="rule_to">至</string>
+    <string name="rule_window_hint">記錄必須落在這個時間範圍內。</string>
+    <string name="rule_window_overnight">結束時間在隔天。</string>
+    <string name="rule_preview">預覽</string>
+    <string name="rule_save">儲存安排</string>
+    <string name="rule_open_time">開始時間</string>
+    <string name="rule_close_time">結束時間</string>
+    <string name="rule_delete">刪除規則</string>
+    <string name="recur_once">指定日期</string>
+    <string name="recur_weekly">每週</string>
+    <string name="recur_monthly">每月</string>
+    <string name="recur_interval">間隔</string>
+    <string name="rule_no_date">未選日期</string>
+    <string name="rule_no_days">未選日子</string>
+    <string name="photos_title">照片</string>
+    <string name="photos_summary">%1$d 張，%2$s</string>
+    <string name="photos_long_press">長按可多選</string>
+    <string name="photos_selected">已選 %d 張</string>
+    <string name="photos_select_all">全選</string>
+    <string name="photos_empty">還沒有照片。</string>
+    <string name="photos_delete_body">記錄和檔案都會被刪除。</string>
+    <string name="notif_channel_name">漏記提醒</string>
+    <string name="notif_channel_desc">時間範圍結束時沒有記錄就提醒。</string>
+    <string name="notif_title">%s 未記錄</string>
+    <string name="notif_text">%s 內沒有任何記錄</string>
+    <string name="countdown_dh">%1$d 天 %2$d 小時</string>
+    <string name="countdown_hm">%1$d 小時 %2$d 分</string>
+    <string name="countdown_m">%d 分</string>
+    <plurals name="home_open_count">
+        <item quantity="other">%d 項進行中</item>
+    </plurals>
+    <plurals name="photos_delete_title">
+        <item quantity="other">刪除 %d 張照片？</item>
+    </plurals>
+    <plurals name="every_minutes">
+        <item quantity="other">每 %d 分鐘</item>
+    </plurals>
+    <plurals name="every_hours">
+        <item quantity="other">每 %d 小時</item>
+    </plurals>
+    <plurals name="every_days">
+        <item quantity="other">每 %d 天</item>
+    </plurals>
+    <plurals name="every_weeks">
+        <item quantity="other">每 %d 週</item>
+    </plurals>
+    <plurals name="every_months">
+        <item quantity="other">每 %d 個月</item>
+    </plurals>
+    <plurals name="unit_minutes">
+        <item quantity="other">分鐘</item>
+    </plurals>
+    <plurals name="unit_hours">
+        <item quantity="other">小時</item>
+    </plurals>
+    <plurals name="unit_days">
+        <item quantity="other">天</item>
+    </plurals>
+    <plurals name="unit_weeks">
+        <item quantity="other">週</item>
+    </plurals>
+    <plurals name="unit_months">
+        <item quantity="other">個月</item>
+    </plurals>
+    <string name="every_1_minute">每分鐘</string>
+    <string name="every_1_hour">每小時</string>
+    <string name="every_1_day">每天</string>
+    <string name="every_1_week">每週</string>
+    <string name="every_1_month">每月</string>
+</resources>

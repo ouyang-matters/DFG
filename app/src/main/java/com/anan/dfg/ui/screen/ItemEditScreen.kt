@@ -44,10 +44,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.anan.dfg.R
 import com.anan.dfg.data.ChecklistItem
 import com.anan.dfg.data.RecurrenceType
 import com.anan.dfg.data.ReminderRule
@@ -196,7 +198,10 @@ fun ItemEditScreen(itemId: Long, onBack: () -> Unit, onDeleted: () -> Unit) {
                 ),
                 navigationIcon = {
                     IconButton(onClick = onBack) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                        Icon(
+                            Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = stringResource(R.string.action_back),
+                        )
                     }
                 },
                 actions = {
@@ -204,7 +209,7 @@ fun ItemEditScreen(itemId: Long, onBack: () -> Unit, onDeleted: () -> Unit) {
                         IconButton(onClick = { confirmDelete = true }) {
                             Icon(
                                 Icons.Default.DeleteOutline,
-                                contentDescription = "Delete",
+                                contentDescription = stringResource(R.string.action_delete),
                                 tint = MaterialTheme.colorScheme.error,
                             )
                         }
@@ -222,7 +227,9 @@ fun ItemEditScreen(itemId: Long, onBack: () -> Unit, onDeleted: () -> Unit) {
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
             Text(
-                if (vm.isNew) "New check" else "Settings",
+                stringResource(
+                    if (vm.isNew) R.string.edit_new_title else R.string.edit_settings_title,
+                ),
                 style = MaterialTheme.typography.displaySmall,
             )
             Spacer(Modifier.height(4.dp))
@@ -230,7 +237,7 @@ fun ItemEditScreen(itemId: Long, onBack: () -> Unit, onDeleted: () -> Unit) {
             OutlinedTextField(
                 value = vm.name,
                 onValueChange = { vm.name = it },
-                label = { Text("Name") },
+                label = { Text(stringResource(R.string.edit_name)) },
                 singleLine = true,
                 shape = RoundedCornerShape(14.dp),
                 modifier = Modifier.fillMaxWidth(),
@@ -238,49 +245,48 @@ fun ItemEditScreen(itemId: Long, onBack: () -> Unit, onDeleted: () -> Unit) {
             OutlinedTextField(
                 value = vm.description,
                 onValueChange = { vm.description = it },
-                label = { Text("Notes (optional)") },
+                label = { Text(stringResource(R.string.edit_notes)) },
                 minLines = 2,
                 shape = RoundedCornerShape(14.dp),
                 modifier = Modifier.fillMaxWidth(),
             )
 
             Spacer(Modifier.height(6.dp))
-            Overline("How it can be logged")
+            Overline(stringResource(R.string.edit_how_logged))
             CheckTypeRow(
-                title = "Photo",
-                subtitle = "Take a picture, or pick one from the library",
+                title = stringResource(R.string.action_photo),
+                subtitle = stringResource(R.string.edit_photo_sub),
                 icon = { Icon(Icons.Default.PhotoCamera, null, Modifier.size(18.dp)) },
                 checked = vm.allowPhoto,
                 onCheckedChange = { vm.allowPhoto = it },
             )
             CheckTypeRow(
-                title = "Tap",
-                subtitle = "One tap, with an optional note",
+                title = stringResource(R.string.edit_tap),
+                subtitle = stringResource(R.string.edit_tap_sub),
                 icon = { Icon(Icons.Default.TaskAlt, null, Modifier.size(18.dp)) },
                 checked = vm.allowButton,
                 onCheckedChange = { vm.allowButton = it },
             )
             if (!vm.allowPhoto && !vm.allowButton) {
                 Text(
-                    "Pick at least one way to log a check.",
+                    stringResource(R.string.edit_pick_one),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.error,
                 )
             }
             if (!vm.isNew && vm.hasExistingEvents) {
                 Text(
-                    "This only affects what you can add from now on. " +
-                        "Entries already logged are kept either way.",
+                    stringResource(R.string.edit_entries_kept),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             }
 
             Spacer(Modifier.height(10.dp))
-            Overline("Schedules")
+            Overline(stringResource(R.string.edit_schedules))
             if (vm.draftRules.isEmpty()) {
                 Text(
-                    "Without a schedule this just keeps a log, with no reminders.",
+                    stringResource(R.string.edit_no_schedule),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
@@ -299,7 +305,7 @@ fun ItemEditScreen(itemId: Long, onBack: () -> Unit, onDeleted: () -> Unit) {
             ) {
                 Icon(Icons.Default.Add, contentDescription = null, modifier = Modifier.size(18.dp))
                 Spacer(Modifier.width(8.dp))
-                Text("Add a schedule")
+                Text(stringResource(R.string.edit_add_schedule))
             }
 
             Spacer(Modifier.height(10.dp))
@@ -309,7 +315,7 @@ fun ItemEditScreen(itemId: Long, onBack: () -> Unit, onDeleted: () -> Unit) {
                 shape = RoundedCornerShape(14.dp),
                 modifier = Modifier.fillMaxWidth().height(52.dp),
             ) {
-                Text(if (vm.isNew) "Create" else "Save")
+                Text(stringResource(if (vm.isNew) R.string.action_create else R.string.action_save))
             }
             Spacer(Modifier.height(28.dp))
         }
@@ -334,16 +340,18 @@ fun ItemEditScreen(itemId: Long, onBack: () -> Unit, onDeleted: () -> Unit) {
     if (confirmDelete) {
         AlertDialog(
             onDismissRequest = { confirmDelete = false },
-            title = { Text("Delete this check?") },
-            text = { Text("Every logged entry and photo goes with it. This cannot be undone.") },
+            title = { Text(stringResource(R.string.delete_check_title)) },
+            text = { Text(stringResource(R.string.delete_check_body)) },
             confirmButton = {
                 TextButton(onClick = {
                     confirmDelete = false
                     vm.deleteItem(onDeleted)
-                }) { Text("Delete") }
+                }) { Text(stringResource(R.string.action_delete)) }
             },
             dismissButton = {
-                TextButton(onClick = { confirmDelete = false }) { Text("Cancel") }
+                TextButton(onClick = { confirmDelete = false }) {
+                    Text(stringResource(R.string.action_cancel))
+                }
             },
         )
     }
@@ -400,8 +408,9 @@ private fun RuleRow(rule: ReminderRule, onClick: () -> Unit, onToggle: (Boolean)
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Column(Modifier.weight(1f)) {
-                Text(Format.rule(rule), style = MaterialTheme.typography.bodyLarge)
-                Overline(Format.recurrenceName(rule.recurrence))
+                val res = LocalContext.current.resources
+                Text(Format.rule(res, rule), style = MaterialTheme.typography.bodyLarge)
+                Overline(Format.recurrenceName(res, rule.recurrence))
             }
             Switch(checked = rule.enabled, onCheckedChange = onToggle)
         }

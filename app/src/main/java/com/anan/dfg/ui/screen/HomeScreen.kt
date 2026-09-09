@@ -43,11 +43,14 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.pluralStringResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.anan.dfg.R
 import com.anan.dfg.data.CheckKind
 import com.anan.dfg.data.ChecklistItem
 import com.anan.dfg.data.ReminderRule
@@ -142,6 +145,9 @@ fun HomeScreen(
     val scope = rememberCoroutineScope()
 
     val capture = rememberPhotoCapture(repo) { itemId, path -> vm.savePhoto(itemId, path) }
+    // Resolved up front: a snackbar is shown from a coroutine, not from composition.
+    val loggedMessage = stringResource(R.string.snackbar_logged)
+    val undoLabel = stringResource(R.string.action_undo)
 
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,
@@ -152,7 +158,7 @@ fun HomeScreen(
                 containerColor = MaterialTheme.colorScheme.primary,
                 contentColor = MaterialTheme.colorScheme.onPrimary,
                 icon = { Icon(Icons.Default.Add, contentDescription = null) },
-                text = { Text("New check") },
+                text = { Text(stringResource(R.string.home_new_check)) },
             )
         },
     ) { padding ->
@@ -173,8 +179,8 @@ fun HomeScreen(
             if (!notificationsAllowed) {
                 item {
                     NoticeCard(
-                        text = "Notifications are off, so nothing will reach you when a window closes.",
-                        actionLabel = "Turn on",
+                        text = stringResource(R.string.home_notif_off),
+                        actionLabel = stringResource(R.string.home_turn_on),
                         onAction = onFixNotifications,
                     )
                 }
@@ -182,8 +188,8 @@ fun HomeScreen(
             if (!exactAlarmAllowed) {
                 item {
                     NoticeCard(
-                        text = "Exact alarms aren't allowed, so reminders may arrive a few minutes late.",
-                        actionLabel = "Settings",
+                        text = stringResource(R.string.home_alarm_off),
+                        actionLabel = stringResource(R.string.home_settings),
                         onAction = onFixExactAlarm,
                     )
                 }
@@ -199,8 +205,8 @@ fun HomeScreen(
                         vm.quickCheckIn(row.item.id) { eventId ->
                             scope.launch {
                                 val result = snackbar.showSnackbar(
-                                    message = "Logged “" + row.item.name + "”",
-                                    actionLabel = "Undo",
+                                    message = loggedMessage.format(row.item.name),
+                                    actionLabel = undoLabel,
                                 )
                                 if (result == SnackbarResult.ActionPerformed) vm.undo(eventId)
                             }
@@ -216,16 +222,15 @@ fun HomeScreen(
 @Composable
 private fun Masthead(pending: Int, hasItems: Boolean) {
     Column(Modifier.padding(top = 12.dp, bottom = 6.dp)) {
-        Overline(Format.dayHeading(LocalDate.now()))
+        Overline(Format.dayHeading(LocalContext.current.resources, LocalDate.now()))
         Spacer(Modifier.height(4.dp))
-        Text("Rounds", style = MaterialTheme.typography.displaySmall)
+        Text(stringResource(R.string.home_title), style = MaterialTheme.typography.displaySmall)
         Spacer(Modifier.height(4.dp))
         Text(
             when {
-                !hasItems -> "Nothing scheduled yet."
-                pending == 0 -> "All clear."
-                pending == 1 -> "1 window still open."
-                else -> "$pending windows still open."
+                !hasItems -> stringResource(R.string.home_none_scheduled)
+                pending == 0 -> stringResource(R.string.home_all_clear)
+                else -> pluralStringResource(R.plurals.home_open_count, pending, pending)
             },
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -251,11 +256,13 @@ private fun EmptyState() {
             )
         }
         Spacer(Modifier.height(18.dp))
-        Text("Nothing to check yet", style = MaterialTheme.typography.headlineSmall)
+        Text(
+            stringResource(R.string.home_empty_title),
+            style = MaterialTheme.typography.headlineSmall,
+        )
         Spacer(Modifier.height(8.dp))
         Text(
-            "Add a routine, choose the days it runs and the window it has to happen in.\n" +
-                "Log it with a photo or a tap, and get a nudge if the window closes empty.",
+            stringResource(R.string.home_empty_body),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
@@ -290,6 +297,7 @@ private fun ItemCard(
     onQuickPhoto: () -> Unit,
 ) {
     val now = remember(row) { System.currentTimeMillis() }
+    val res = LocalContext.current.resources
     val tone = statusTone(row.status, now)
     Card(
         onClick = onClick,
@@ -338,8 +346,8 @@ private fun ItemCard(
                 Spacer(Modifier.height(10.dp))
                 Overline(
                     row.rules.filter { it.enabled }.take(2)
-                        .joinToString("  ·  ") { Format.rule(it) }
-                        .ifEmpty { "Logging only" },
+                        .joinToString("  ·  ") { Format.rule(res, it) }
+                        .ifEmpty { stringResource(R.string.headline_log_only) },
                 )
 
                 Spacer(Modifier.height(12.dp))
@@ -352,7 +360,10 @@ private fun ItemCard(
                         ) {
                             Icon(Icons.Default.PhotoCamera, null, Modifier.size(17.dp))
                             Spacer(Modifier.width(6.dp))
-                            Text("Photo", style = MaterialTheme.typography.labelLarge)
+                            Text(
+                                stringResource(R.string.action_photo),
+                                style = MaterialTheme.typography.labelLarge,
+                            )
                         }
                     }
                     if (row.item.allowButton) {
@@ -363,7 +374,10 @@ private fun ItemCard(
                         ) {
                             Icon(Icons.Default.TaskAlt, null, Modifier.size(17.dp))
                             Spacer(Modifier.width(6.dp))
-                            Text("Log check", style = MaterialTheme.typography.labelLarge)
+                            Text(
+                                stringResource(R.string.action_log_check),
+                                style = MaterialTheme.typography.labelLarge,
+                            )
                         }
                     }
                 }
@@ -372,7 +386,7 @@ private fun ItemCard(
                     Spacer(Modifier.height(10.dp))
                     Box {
                         Text(
-                            "Last " + Format.dateTime(it),
+                            stringResource(R.string.home_last, Format.dateTime(res, it)),
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                         )

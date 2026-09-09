@@ -26,10 +26,10 @@ object Notifier {
     fun ensureChannel(context: Context) {
         val channel = NotificationChannel(
             CHANNEL_ID,
-            "Missed checks",
+            context.getString(R.string.notif_channel_name),
             NotificationManager.IMPORTANCE_HIGH,
         ).apply {
-            description = "Fires when a check window closes with nothing logged"
+            description = context.getString(R.string.notif_channel_desc)
             enableVibration(true)
         }
         NotificationManagerCompat.from(context).createNotificationChannel(channel)
@@ -60,14 +60,16 @@ object Notifier {
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
         )
 
+        val res = context.resources
+        val windowText = Format.window(res, window)
         val notification = NotificationCompat.Builder(context, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_stat_check)
-            .setContentTitle(item.name + " was not logged")
-            .setContentText("The window " + Format.window(window) + " closed with nothing logged")
+            .setContentTitle(context.getString(R.string.notif_title, item.name))
+            .setContentText(context.getString(R.string.notif_text, windowText))
             .setStyle(
                 NotificationCompat.BigTextStyle().bigText(
-                    "The window " + Format.window(window) +
-                        " closed with nothing logged.\nSchedule: " + Format.rule(rule),
+                    context.getString(R.string.notif_text, windowText) +
+                        "\n" + Format.rule(res, rule),
                 ),
             )
             .setPriority(NotificationCompat.PRIORITY_HIGH)
