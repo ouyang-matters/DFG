@@ -10,6 +10,7 @@ keystore.properties
 *.jks
 *.keystore
 .kotlin/
-# Built artefacts are attached to releases rather than committed.
+# Build outputs stay out of the repo, except the published APK in dist/.
 *.apk
 *.aab
+!dist/*.apk
