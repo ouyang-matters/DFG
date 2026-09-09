@@ -1,0 +1,15 @@
+*.iml
+.gradle/
+build/
+local.properties
+.idea/
+.DS_Store
+captures/
+# Signing material stays out of version control.
+keystore.properties
+*.jks
+*.keystore
+.kotlin/
+# Built artefacts are attached to releases rather than committed.
+*.apk
+*.aab

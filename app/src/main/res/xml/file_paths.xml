@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <!-- The camera writes straight into filesDir/photos/<itemId>/. -->
+    <files-path
+        name="check_photos"
+        path="photos/" />
+</paths>
