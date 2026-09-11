@@ -7,8 +7,6 @@
     <string name="home_new_check">新建检查</string>
     <string name="home_notif_off">通知已关闭。</string>
     <string name="home_turn_on">开启</string>
-    <string name="home_alarm_off">精确闹钟已关闭，提醒可能延迟。</string>
-    <string name="home_settings">设置</string>
     <string name="home_empty_title">还没有检查项</string>
     <string name="home_empty_body">添加一项检查，选择重复的日子和时间段。用照片或点一下记录。</string>
     <string name="home_last">上次 %s</string>

@@ -7,8 +7,6 @@
     <string name="home_new_check">新增檢查</string>
     <string name="home_notif_off">通知已關閉。</string>
     <string name="home_turn_on">開啟</string>
-    <string name="home_alarm_off">精確鬧鐘已關閉，提醒可能延遲。</string>
-    <string name="home_settings">設定</string>
     <string name="home_empty_title">還沒有檢查項</string>
     <string name="home_empty_body">新增一項檢查，選擇重複的日子和時間範圍。用照片或點一下記錄。</string>
     <string name="home_last">上次 %s</string>

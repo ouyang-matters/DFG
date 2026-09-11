@@ -1,60 +1,116 @@
-# Play release checklist
+# Publishing Rounds on Google Play
 
-## Ready in this repo
+## What is ready
 
 | Item | Where |
 | --- | --- |
-| App bundle (upload this) | `app/build/outputs/bundle/release/app-release.aab` |
-| Signed APK (sideload / testing) | `dist/Rounds-1.0.apk` |
+| App bundle to upload | `app/build/outputs/bundle/release/app-release.aab` |
+| Signed APK for sideloading | `dist/Rounds-1.0.apk` |
 | Store icon, 512x512 | `store/play-icon-512.png` |
 | Feature graphic, 1024x500 | `store/play-feature-1024x500.png` |
 | Phone screenshots | `store/screenshots/` |
-| Listing copy, 4 locales | `store/listing/` |
-| Privacy policy text | `store/PRIVACY.md` |
+| Listing copy in 4 languages | `store/listing/` |
+| Privacy policy | `docs/privacy.md` |
 
-Build both artifacts with:
+Rebuild both artifacts with:
 
 ```
 ./gradlew :app:bundleRelease :app:assembleRelease
 ```
 
-## Technical state
+App ID `io.github.ouyangmatters.rounds`, versionCode 1, targetSdk 36.
+Permissions: notifications, boot completed, vibrate. No internet, no camera,
+no exact alarms, no foreground service.
 
-- `targetSdk` 36, `compileSdk` 36, `minSdk` 26.
-- R8 and resource shrinking on. The release APK is 1.9 MB.
-- Localised for English, French, Simplified Chinese and Traditional Chinese,
-  with `localeConfig` so users can switch language per app.
-- Signed with `rounds-release.jks`, which is the **upload key**. Play App
-  Signing will hold the distribution key. Keep the upload key backed up; losing
-  it means asking Google to reset it.
+## Step 1. Developer account
 
-## What you still have to do in Play Console
+Sign up at https://play.google.com/console with a one time USD 25 fee and
+identity verification. Choose **personal** unless you have a registered
+organisation with a D-U-N-S number.
 
-1. **Host the privacy policy.** A public URL is required. Publish
-   `store/PRIVACY.md` somewhere (GitHub Pages works) and paste the link.
-2. **Declare the exact alarm permission.** The app requests
-   `SCHEDULE_EXACT_ALARM`, which triggers a declaration form. The honest
-   justification: a reminder must arrive when the check window actually closes,
-   because a late reminder for a window that has already ended is useless.
-   If the declaration is rejected, remove the permission from the manifest and
-   the app falls back to inexact alarms on its own. That path already works.
-3. **Data safety form.** The app collects nothing and has no `INTERNET`
-   permission, so answer "no data collected" and "no data shared". Mention that
-   photos and entries stay in app private storage.
-4. **Content rating questionnaire.** Nothing sensitive applies.
-5. **Target audience.** Not directed at children.
-6. **Countries and pricing.** Free.
+Personal accounts created after November 2023 cannot publish to production
+straight away. They must first run a closed test with at least 12 testers who
+stay opted in for 14 days in a row. Plan for this: it is the longest part.
 
-## Decisions worth making before the first upload
+## Step 2. Host the privacy policy
 
-These are permanent or expensive to change once published.
+Play needs a public URL. `docs/privacy.md` is already in the repo.
 
-- **Application ID is `com.anan.dfg`.** It can never be changed after
-  publishing, and `dfg` was only ever the working folder name. Something like
-  `com.ouyangmatters.rounds` would read better forever. Changing it now costs
-  one line; changing it later means a brand new listing.
-- **Keystore password is `roundsapp`.** Fine for sideloading, weak for a key
-  that has to last the lifetime of the app. Nothing has been uploaded yet, so
-  regenerating it with a strong password is currently free.
-- **App name "Rounds"** is not reserved. Check it is distinct enough on Play in
-  your target countries.
+1. GitHub, repository `ouyang-matters/DFG`, Settings, Pages.
+2. Source: deploy from branch `main`, folder `/docs`.
+3. The policy appears at `https://ouyang-matters.github.io/DFG/privacy.html`.
+
+Pages on a free plan requires the repository to be public. If you want to keep
+it private, host the file anywhere else that is public.
+
+## Step 3. Create the app
+
+Play Console, Create app.
+
+- App name: `Rounds`
+- Default language: English (United States)
+- App or game: App
+- Free or paid: Free. This cannot be changed to paid later.
+
+## Step 4. App content
+
+Found under Policy, App content. Every item must be finished before any release.
+
+| Section | Answer |
+| --- | --- |
+| Privacy policy | The Pages URL from step 2 |
+| Ads | No ads |
+| App access | All functionality is available without special access |
+| Content rating | Fill the questionnaire as a utility app, answer no to everything. Expect Everyone / 3+ |
+| Target audience | 18 and over, or 13 and over. Not children |
+| Data safety | Collects no data, shares no data. Photos and entries never leave the device, which is what Google counts as collection |
+| Health apps | No health features. The listing mentions OCD as a personal story, it makes no medical claim, keep it that way |
+| Government, financial, news | No |
+
+## Step 5. Store listing
+
+Main store listing, default language English:
+
+- Short and full description from `store/listing/en-US.txt`
+- App icon `store/play-icon-512.png`
+- Feature graphic `store/play-feature-1024x500.png`
+- Phone screenshots from `store/screenshots/`, at least 2
+- Category: Productivity
+- Contact email: required, shown publicly
+
+Then Manage translations, add French (France), Chinese (Simplified) and
+Chinese (Traditional), and paste the matching file from `store/listing/`.
+
+## Step 6. First upload, internal testing
+
+Testing, Internal testing, Create new release.
+
+1. Accept **Play App Signing**. Google keeps the key that signs what users
+   install. `rounds-upload.jks` becomes your upload key only.
+2. Upload `app-release.aab`.
+3. Release name `1.0`, notes: `First release.`
+4. Add yourself as a tester, open the opt in link on your phone, install from
+   Play and check notifications and photos work.
+
+## Step 7. Closed test, 12 testers for 14 days
+
+Testing, Closed testing. Promote the same release, add at least 12 testers by
+email or Google Group, and send them the opt in link. They must install and
+stay opted in for 14 consecutive days. Ask them to actually use it: Google
+also looks at whether testers engaged.
+
+## Step 8. Production
+
+After the 14 days, Dashboard, Apply for production. Answer the questions about
+the test. Once granted, promote the release to Production and pick countries.
+Review usually takes a few days for a new app.
+
+## Every later update
+
+1. Raise `versionCode` in `app/build.gradle.kts` by one, and `versionName`.
+2. `./gradlew :app:bundleRelease`
+3. Upload the new `.aab` to a track and promote it.
+
+Back up `rounds-upload.jks` and `keystore.properties` together, outside this
+machine. If the upload key is lost, Play support can reset it, but it takes
+days.

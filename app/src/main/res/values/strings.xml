@@ -7,8 +7,6 @@
     <string name="home_new_check">New check</string>
     <string name="home_notif_off">Notifications are off.</string>
     <string name="home_turn_on">Turn on</string>
-    <string name="home_alarm_off">Exact alarms are off. Reminders may be late.</string>
-    <string name="home_settings">Settings</string>
     <string name="home_empty_title">Nothing to check yet</string>
     <string name="home_empty_body">Add a check, pick the days and the time window. Log it with a photo or a tap.</string>
     <string name="home_last">Last %s</string>

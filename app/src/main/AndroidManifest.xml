@@ -3,9 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.VIBRATE" />
+
+    <!--
+      WorkManager merges this in for foreground work, which the app never does.
+      Removing it avoids a foreground service declaration on Play.
+    -->
+    <uses-permission
+        android:name="android.permission.FOREGROUND_SERVICE"
+        tools:node="remove" />
 
     <!--
       刻意不宣告 CAMERA 權限：拍照走 ACTION_IMAGE_CAPTURE 交給系統相機處理，
@@ -22,7 +29,7 @@
     </queries>
 
     <application
-        android:name=".DfgApp"
+        android:name=".RoundsApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -31,14 +38,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:localeConfig="@xml/locales_config"
-        android:theme="@style/Theme.DFG"
+        android:theme="@style/Theme.Rounds"
         tools:targetApi="31">
 
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:launchMode="singleTop"
-            android:theme="@style/Theme.DFG"
+            android:theme="@style/Theme.Rounds"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -60,7 +67,7 @@
             android:name=".schedule.ReminderReceiver"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.anan.dfg.action.CHECK_DEADLINE" />
+                <action android:name="io.github.ouyangmatters.rounds.action.CHECK_DEADLINE" />
             </intent-filter>
         </receiver>
 
@@ -74,13 +81,6 @@
             </intent-filter>
         </receiver>
 
-        <receiver
-            android:name=".schedule.ExactAlarmPermissionReceiver"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="android.app.action.SCHEDULE_EXACT_ALARM_PERMISSION_STATE_CHANGED" />
-            </intent-filter>
-        </receiver>
     </application>
 
 </manifest>

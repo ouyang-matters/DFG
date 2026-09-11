@@ -7,18 +7,18 @@ plugins {
     alias(libs.plugins.ksp)
 }
 
-// Signing details live in keystore.properties, which is not in version control.
+// Upload-key details live in keystore.properties, which is not in version control.
 val keystoreProperties = Properties().apply {
     val file = rootProject.file("keystore.properties")
     if (file.exists()) file.inputStream().use { load(it) }
 }
 
 android {
-    namespace = "com.anan.dfg"
+    namespace = "io.github.ouyangmatters.rounds"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.anan.dfg"
+        applicationId = "io.github.ouyangmatters.rounds"
         minSdk = 26
         targetSdk = 36
         versionCode = 1

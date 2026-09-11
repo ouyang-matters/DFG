@@ -7,8 +7,6 @@
     <string name="home_new_check">Nouveau contrôle</string>
     <string name="home_notif_off">Les notifications sont désactivées.</string>
     <string name="home_turn_on">Activer</string>
-    <string name="home_alarm_off">Alarmes exactes désactivées. Les rappels peuvent tarder.</string>
-    <string name="home_settings">Réglages</string>
     <string name="home_empty_title">Rien à contrôler</string>
     <string name="home_empty_body">Ajoutez un contrôle, choisissez les jours et la plage horaire. Enregistrez avec une photo ou un appui.</string>
     <string name="home_last">Dernier %s</string>

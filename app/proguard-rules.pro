@@ -1,1 +1,1 @@
--keep class com.anan.dfg.data.** { *; }
+-keep class io.github.ouyangmatters.rounds.data.** { *; }
